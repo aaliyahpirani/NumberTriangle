@@ -92,8 +92,12 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+        NumberTriangle currItem = this;
+        for (char : path.toCharArray())
+            if (c == 'l') { currItem = currItem.left;}
+            else if (c == 'r') {currItem = currItem.right;}
+
+        return currItem.root;
     }
 
     /** Read in the NumberTriangle structure from a file.
