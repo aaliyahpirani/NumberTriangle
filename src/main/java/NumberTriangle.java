@@ -1,5 +1,9 @@
-import java.io.*;
+package main.java;
 
+
+import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
 /**
  * This is the provided NumberTriangle class to be used in this coding task.
  *
@@ -36,16 +40,16 @@ public class NumberTriangle {
 
     public NumberTriangle(int root) {
         this.root = root;
-    }
+    } // constructor
 
     public void setLeft(NumberTriangle left) {
         this.left = left;
-    }
+    } // set left value
 
 
     public void setRight(NumberTriangle right) {
         this.right = right;
-    }
+    } // set right value
 
     public int getRoot() {
         return root;
@@ -108,20 +112,33 @@ public class NumberTriangle {
         // are more convenient to work with when reading the file contents.
         InputStream inputStream = NumberTriangle.class.getClassLoader().getResourceAsStream(fname);
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
-
-        // TODO define any variables that you want to use to store things
-
-        // will need to return the top of the NumberTriangle,
-        // so might want a variable for that.
+        List<NumberTriangle> prevRow = null;
         NumberTriangle top = null;
+
 
         String line = br.readLine();
         while (line != null) {
+            String[] nums = line.trim().split(" ");
+            List<NumberTriangle> currRow = new ArrayList<>();
+            for (String num: nums) {
+                currRow.add(new NumberTriangle(Integer.parseInt(num)));
 
+            }
+
+            if (prevRow != null) {
+                for (int j = 0; j < prevRow.size(); j++) {
+                    prevRow.get(j).setLeft(currRow.get(j));
+                    prevRow.get(j).setRight(currRow.get(j+1));
+                }
+
+
+            }
+            else {
+                top = currRow.get(0);
+            }
+            prevRow = currRow;
             // remove when done; this line is included so running starter code prints the contents of the file
             System.out.println(line);
-
             // TODO process the line
 
             //read the next line
